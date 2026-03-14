@@ -1,0 +1,185 @@
+/* ========== Root Variables ========== */
+:root {
+  --color-primary: #4A4AFF;        /* Blue accent */
+  --color-secondary: #1F1F1F;      /* Dark text */
+  --color-bg: #FFFFFF;             /* Background */
+  --color-card: #F9F9FB;           /* Slot container */
+  --color-booked: #F44336;         /* Booked slot */
+  --color-text: #1A1A1A;           /* Main text */
+  --color-hover: #E6E6FF;          /* Hover effect */
+  --radius: 20px;                   /* Pill slots */
+  --gap: 0.5rem;
+}
+
+/* ========== General Body ========== */
+body {
+  font-family: 'Inter', 'Helvetica Neue', sans-serif;
+  font-size: 16px;
+  color: var(--color-text);
+}
+
+/* ========== Booking Container ========== */
+#studio-booking-ui {
+  max-width: 500px;
+  margin: 2rem auto;
+  padding: 1rem;
+  background: var(--color-bg);
+  border-radius: 12px;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+}
+
+/* Header */
+.sb-header h2 {
+  font-size: 1.5rem;
+  margin-bottom: 0.2rem;
+  font-weight: 600;
+}
+
+.sb-header p {
+  font-size: 0.9rem;
+  color: #666;
+  margin-bottom: 1rem;
+}
+
+/* Calendar */
+.sb-calendar label {
+  display: block;
+  font-weight: 600;
+  margin-bottom: 0.3rem;
+}
+
+#booking-date {
+  width: 100%;
+  padding: 0.7rem;
+  border-radius: 10px;
+  border: 1px solid #DDD;
+  font-size: 1rem;
+  background: #FAFAFA;
+}
+
+/* Day container */
+.sb-day{
+  margin-bottom:25px;
+  padding:16px;
+  border-radius:14px;
+  background:#fafafa;
+}
+
+/* Date title */
+.sb-day h4{
+  font-size:16px;
+  font-weight:600;
+  margin-bottom:10px;
+}
+
+/* Time slot container */
+.slots{
+  display:grid;
+  grid-template-columns:repeat(auto-fill,minmax(120px,1fr));
+  gap:10px;
+  margin-top:10px;
+}
+
+/* Slot base style */
+.time-slot{
+  display:flex;
+  justify-content:center;
+  align-items:center;
+  padding:10px 12px;
+  font-size:14px;
+  font-weight:500;
+  border-radius:10px;
+  border:1px solid #e6e6e6;
+  background:#fff;
+  cursor:pointer;
+  transition:all .2s ease;
+}
+
+/* Hover available slot */
+.time-slot:hover{
+  border-color:#111;
+  transform:translateY(-2px);
+  box-shadow:0 6px 16px rgba(0,0,0,0.08);
+}
+
+/* Selected slot */
+.time-slot.selected{
+  background:#111;
+  color:#fff;
+  border-color:#111;
+}
+
+/* Booked slot */
+.time-slot.booked{
+  background:#f5f5f5;
+  color:#aaa;
+  cursor:not-allowed;
+  border-color:#eee;
+  text-decoration:line-through;
+}
+
+/* ========== Summary Section ========== */
+.sb-summary {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  margin-top: 1rem;
+}
+
+.sb-summary-list{
+  margin-top:20px;
+  display:flex;
+  flex-direction:column;
+  gap:10px;
+}
+
+.summary-card{
+  padding:12px 16px;
+  border-radius:12px;
+  background:#f8f8f8;
+  font-size:14px;
+  font-weight:500;
+}
+
+.summary-card strong {
+  color: #4A4AFF;
+}
+
+.sb-summary-total {
+  font-weight: 600;
+  font-size: 1rem;
+}
+
+.sb-btn {
+  padding: 0.8rem 1.2rem;
+  background: var(--color-primary);
+  color: #FFF;
+  border: none;
+  border-radius: var(--radius);
+  cursor: pointer;
+  transition: background 0.2s ease;
+  font-weight: 500;
+}
+
+.sb-btn:hover {
+  background: #3A3ACF;
+}
+
+/* day with some bookings */
+.flatpickr-day.has-booking{
+  position:relative;
+}
+
+.flatpickr-day.has-booking::after{
+  content:'';
+  position:absolute;
+  bottom:4px;
+  left:50%;
+  transform:translateX(-50%);
+  width:6px;
+  height:6px;
+  border-radius:50%;
+  background:#ff7a18;
+}
