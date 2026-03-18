@@ -143,18 +143,25 @@ jQuery(function ($) {
         $("#booking-total").text(totalHours * StudioBookingAjax.hourly_rate);
       }
 
-      // Submit booking
+      // Submit booking via WooCommerce
       $("#booking-submit").on("click", function () {
         if (Object.keys(selectedSlots).length === 0) {
-          alert("Select at least one slot");
+          alert("Please select at least one slot");
           return;
         }
+
         $.post(
           StudioBookingAjax.ajax_url,
-          { action: "save_booking", slots: selectedSlots },
-          function () {
-            alert("Your booking is confirmed!");
-            location.reload();
+          {
+            action: "add_booking_to_cart",
+            slots: JSON.stringify(selectedSlots),
+          },
+          function (res) {
+            if (res.success && res.data.redirect) {
+              window.location.href = res.data.redirect;
+            } else {
+              alert("Error: " + (res.data || "Unable to proceed"));
+            }
           },
         );
       });

@@ -1,7 +1,58 @@
-#studio-calendar {
-  max-width: 1100px;
-  background: #fff;
-  padding: 20px;
-  border-radius: 12px;
-  box-shadow: 0 8px 30px rgba(0,0,0,0.08);
+.sb-admin {
+    font-family: 'Inter', sans-serif;
+    background:#f9f9f9;
+    padding:20px;
+}
+
+.sb-admin-header h1 {
+    font-size:28px;
+    font-weight:600;
+    margin-bottom:4px;
+}
+
+.sb-admin-header p {
+    color:#6b7280;
+    margin-bottom:16px;
+}
+
+.sb-admin-stats {
+    display:flex;
+    gap:16px;
+    margin-bottom:24px;
+}
+
+.sb-card {
+    background:#fff;
+    padding:16px;
+    border-radius:12px;
+    flex:1;
+    box-shadow:0 4px 20px rgba(0,0,0,0.05);
+    text-align:center;
+}
+
+.sb-card-title {
+    display:block;
+    color:#6b7280;
+    font-size:14px;
+    margin-bottom:4px;
+}
+
+.sb-card-value {
+    font-size:20px;
+    font-weight:600;
+    color:#111827;
+}
+
+.sb-calendar-card {
+    background:#fff;
+    padding:20px;
+    border-radius:12px;
+    box-shadow:0 8px 30px rgba(0,0,0,0.08);
+}
+
+.fc .fc-event {
+    border-radius:8px !important;
+    font-weight:500;
+    font-size:13px;
+    cursor:pointer;
 }
