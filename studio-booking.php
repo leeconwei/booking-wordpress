@@ -65,20 +65,21 @@ function studio_booking_form() {
     ob_start(); ?>
     <div id="studio-booking-ui">
         <div class="sb-header">
-            <h2>Book Your Studio</h2>
-            <p>Select multiple days and hours</p>
+            <h2>Reserve Your Studio</h2>
+            <p>Pick your date(s) and time(s)</p>
         </div>
 
         <div class="sb-calendar">
-            <label>Select Dates</label>
-            <input id="booking-date" type="text" placeholder="Select Dates">
+            <input id="booking-date" type="text" placeholder="Select Booking Date(s)">
         </div>
 
         <div id="sb-time-slots"></div>
 
         <div class="sb-summary">
             <div class="sb-summary-list"></div>
-            <div class="sb-summary-total">Total: RM <span id="booking-total">0</span></div>
+</div>
+<div class="sb-summary-bottom">
+            <p class="sb-summary-total">Total: RM <span id="booking-total">0</span></p>
             <button id="booking-submit" class="sb-btn">Book Now</button>
         </div>
     </div>
@@ -457,3 +458,46 @@ function studio_save_booking($order_id){
         }
     }
 };
+
+add_filter('woocommerce_order_item_permalink', '__return_false');
+
+add_action('wp_ajax_get_booking_stats', 'get_booking_stats');
+function get_booking_stats() {
+    global $wpdb;
+    $table = $wpdb->prefix . 'studio_bookings';
+    $today = date('Y-m-d');
+    $month = date('Y-m');
+
+    $today_count = $wpdb->get_var($wpdb->prepare("SELECT COUNT(*) FROM $table WHERE booking_date = %s", $today));
+    $month_count = $wpdb->get_var($wpdb->prepare("SELECT COUNT(*) FROM $table WHERE booking_date LIKE %s", $month . '%'));
+    $total_count = $wpdb->get_var("SELECT COUNT(*) FROM $table");
+
+    wp_send_json_success([
+        'today' => (int)$today_count,
+        'month' => (int)$month_count,
+        'total' => (int)$total_count
+    ]);
+}
+
+add_action('admin_footer-toplevel_page_studio-booking-calendar', function() {
+    ?>
+    <script type="text/javascript">
+    (function($){
+        console.log("Admin footer JS running");
+
+        $("#sb-today-count").text("1");
+        $("#sb-month-count").text("2");
+        $("#sb-total-count").text("3");
+
+        // real AJAX
+        $.post(StudioBookingAjax.ajax_url, {action: "get_booking_stats"}, function(res){
+            if(res.success){
+                $("#sb-today-count").text(res.data.today);
+                $("#sb-month-count").text(res.data.month);
+                $("#sb-total-count").text(res.data.total);
+            }
+        });
+    })(jQuery);
+    </script>
+    <?php
+});

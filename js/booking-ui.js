@@ -14,7 +14,14 @@ jQuery(function ($) {
         dateFormat: "Y-m-d",
 
         onDayCreate: function (dObj, dStr, fp, dayElem) {
-          let date = dayElem.dateObj.toISOString().split("T")[0];
+          let d = dayElem.dateObj;
+
+          let date =
+            d.getFullYear() +
+            "-" +
+            String(d.getMonth() + 1).padStart(2, "0") +
+            "-" +
+            String(d.getDate()).padStart(2, "0");
 
           if (bookedDays.includes(date)) {
             dayElem.classList.add("has-booking");
